@@ -201,6 +201,8 @@ a.addEventListener("click", async function () { // 如果用await 一定要有as
   console.log(a);
 });
 ```
+## async和await的作用
+使用同步的书写方式来达到异步代码的调用效果。
 
 
     
