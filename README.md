@@ -1,4 +1,4 @@
-# 1. Front-End Interview GitBook
+# Front-End Interview GitBook
 - 本篇是本人GitBook的第一次尝试，用以记录与分享
 
 - 尽可能涵盖大部分前端/WebGIS开发面试所能涵盖的知识点

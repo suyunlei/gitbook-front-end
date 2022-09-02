@@ -1,4 +1,4 @@
-# 2. Promise
+# Promise
 > Promise是一个构造函数，可以进行对象的实例化,多用于处理> 异步任务(AJAX,文件IO,setTimeout)
 ## Promise的作用
 - Promise支持链式调用，可以解决回调地狱的问题
