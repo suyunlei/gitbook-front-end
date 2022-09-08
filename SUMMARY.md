@@ -1,6 +1,8 @@
 # Table of contents
 
 * [Front-End Interview GitBook](README.md)
-* [Promise知识点](Promise知识点.md)
-* [应用层协议](应用层协议.md)
-* [细碎知识杂谈](细碎知识杂谈.md)
+* [Table of contents](table-of-contents.md)
+* [JavaScript](javascript.md)
+* [Promise知识点](promise-zhi-shi-dian.md)
+* [网络协议](wang-luo-xie-yi.md)
+* [细碎知识杂谈](xi-sui-zhi-shi-za-tan.md)
