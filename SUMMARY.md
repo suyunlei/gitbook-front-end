@@ -1,7 +1,6 @@
 # Table of contents
 
-* [JavaScript](README.md)
-* [😀 Front-End Interview GitBook](<README (1).md>)
+* [😀 Front-End Interview GitBook](<README.md>)
 * [🤡 浏览器缓存](cache.md)
 * [😁 JavaScript](javascript.md)
 * [😎 Promise知识点](promise-zhi-shi-dian.md)
