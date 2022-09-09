@@ -83,7 +83,9 @@
 
 ### Cookie
 
-cookie是保存在**本地**的数据。cookie由**服务器生成**，发送给浏览器，浏览器把cookie保存到某个目录下的文本文件内，下一次请求同一网站时, 按照一定的原则在后台自动把该cookie发送给服务器。 cookie是服务端保存在数据库，客户端保存在cookie文件中。 cookie验证是**有状态**的。
+cookie是保存在**本地**的数据。cookie由**服务器生成**，发送给浏览器，浏览器把cookie保存到某个目录下的文本文件内，下一次请求同一网站时, 按照一定的原则在后台自动把该cookie发送给服务器。
+cookie是服务端保存在数据库，客户端保存在cookie文件中。
+cookie验证是**有状态**的。
 
 cookie的内容主要包括：名字、值、**过期时间**、路径和域。
 
@@ -97,7 +99,7 @@ Session保存在**服务器**，也是为了存放用户信息。用户离开网
 
 ### Token
 
-token 也称作令牌，本质上是一个**32位字符串**在客户端一般存放于localStorage，也可以存放在cookie，或sessionStorage中。服务器不需要存储。 客户端每次发送请求的时候带上这个token，服务器只需要解析这个token是否有效即可。 token验证是无状态的。 认证流程与cookie类似
+token 也称作令牌，本质上是一个**32位字符串**在客户端一般存放于localStorage，也可以存放在cookie，或sessionStorage中。服务器不需要存储。 客户端每次发送请求的时候带上这个token，服务器只需要解析这个token是否有效即可。 token验证是**无状态**的。
 
 token可以防护**csrf**，cookie和session不行
 
@@ -149,7 +151,7 @@ alert( curriedSum(1)(2) ); // 3
 
 ## Webpack
 
-_前端工程化_可以引出webpack —— `webpack.config.js` 能提供的**作用**包括：
+前端工程化可以引出webpack —— `webpack.config.js` 能提供的**作用**包括：
 
 * 代码压缩混淆
 * 处理浏览器端javascript的兼容性
@@ -163,3 +165,28 @@ module.exports = {
     mode:'development'
 }
 ```
+
+# 浏览器输入URL到页面加载全过程
+1. 输入URL
+2. 查找缓存
+3. DNS域名解析，根据域名解析IP地址 - DNS是基于**UDP**协议的;
+    本地DNF服务器 - 根域名服务器 - 一级域名服务器 - 二级域名服务器
+4. 建立TCP连接 - 三次握手
+5. 客户端发送HTTP请求
+6. 服务器接收HTTP请求并返回响应
+7. 断开TCP连接 - 四次挥手
+8. 浏览器渲染
+    - 构建DOM树
+    - 构建CSS规则树
+    - 构建render树
+    - 布局 layout
+    - 绘制
+    - JS引擎解析
+    > 是一个渐进的过程，不必等待全部HTML文件解析后才渲染，会尽快将内容渲染
+
+# 内存泄漏
+常见的内存泄漏的几种方式：
+1. 闭包
+2. 全局变量
+3. DOM元素的引用
+4. 定时器
