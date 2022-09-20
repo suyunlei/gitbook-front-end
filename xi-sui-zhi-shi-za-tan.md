@@ -211,3 +211,8 @@ module.exports = {
 10. class类
 11. \*\*
 12. async await
+
+## class与构造函数的区别
+构造函数会变量提升，即可以先使用后声明。
+而class必须先声明，后使用。
+

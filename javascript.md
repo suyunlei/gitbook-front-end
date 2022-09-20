@@ -101,3 +101,127 @@ a = 2; 00000010
 2. 00000011
 即11111101应该是 - 3
 ```
+
+# 严格模式
+不支持严格模式与支持严格模式的浏览器在执行严格模式代码时会采用不同行为。严格模式代码和非严格模式代码可以共存，因此项目脚本可以*渐进式*地采用严格模式。
+``` javascript
+// 整个脚本都开启严格模式的语法
+"use strict";
+var v = "Hi!  I'm a strict mode script!";
+```
+但这样会产生合并问题，建议按照一个个**函数**去开启严格模式
+``` javascript
+function strict() {
+  // 函数级别严格模式语法
+  'use strict';
+  function nested() {
+    return "And so am I!";
+  }
+  return "Hi!  I'm a strict mode function!  " + nested();
+}
+```
+
+## 会将过失错误转化为异常
+1. 严格模式下无法意外的创建全局变量
+``` javascript
+"use strict";
+                       // 假如有一个全局变量叫做mistypedVariable
+mistypedVaraible = 17; // 因为变量名拼写错误
+                       // 这一行代码就会抛出 ReferenceError
+
+```
+2. 严格模式会引擎静默失败的赋值操作会抛出异常。
+    - 给不可写属性赋值
+    - 给只读属性赋值
+    - 给不可扩展对象的新属性赋值
+``` javascript
+"use strict";
+
+// 给不可写属性赋值
+var obj1 = {};
+Object.defineProperty(obj1, "x", { value: 42, writable: false });
+obj1.x = 9; // 抛出 TypeError 错误
+
+// 给只读属性赋值
+var obj2 = { get x() { return 17; } };
+obj2.x = 5; // 抛出 TypeError 错误
+
+// 给不可扩展对象的新属性赋值
+var fixed = {};
+Object.preventExtensions(fixed);
+fixed.newProp = "ohai"; // 抛出 TypeError 错误
+
+```
+3. 试图删除不可删除的属性时会抛出异常
+``` javascript
+"use strict";
+delete Object.prototype; // 抛出 TypeError 错误
+```
+4. 在同一个对象内属性名重复会抛出异常
+``` javascript
+"use strict";
+var o = { p: 1, p: 2 }; // !!! 语法错误
+```
+5. 严格模式下要求函数的参数名唯一
+``` javascript
+const add = function (a, a, c) {
+  return a + a + c;
+};
+console.log(add(1, 2, 3)); // 输出 7
+
+
+"use strict";
+const add = function (a, a, c) {
+  return a + a + c;
+};
+console.log(add(1, 2, 3)); // 会报错
+```
+6. 严格模式禁止8进制的语法数字
+
+## 简化变量的使用
+1. 严格模式禁用with
+2. 严格模式eval不再为上层作用域引入新变量
+3. 严格模式禁止删除声明变量
+4. 严格模式下，参数值不会随着arguments的对象的变化而变化
+``` javascript
+// 不用严格模式
+function f(a) {
+  a = 42;
+  return [a, arguments[0]];
+}
+var pair = f(17);
+console.log(pair); //42,42
+
+// 使用严格模式
+function f(a) {
+  "use strict";
+  a = 42;
+  return [a, arguments[0]];
+}
+var pair = f(17);
+console.log(pair); // 42,17
+```
+
+# import的使用
+file.js
+``` javascript
+function getJSON(url, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    callback(this.responseText)
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+}
+
+export function getUsefulContents(url, callback) {
+  getJSON(url, data => callback(JSON.parse(data)));
+}
+```
+main.js
+``` javascript
+import { getUsefulContents } from '/modules/file.js';
+
+getUsefulContents('http://www.example.com',
+    data => { doSomethingUseful(data); });
+```
