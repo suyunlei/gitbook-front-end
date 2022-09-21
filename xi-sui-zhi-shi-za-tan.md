@@ -74,12 +74,44 @@
 
 ### 节流和防抖
 
-节流：事件触发后，规定时间内，事件处理函数不能再次被调用。即在规定时间内，只能调用一次。 防抖：多次触发事件，事件处理函数只执行一次，规定时间内，只有最后一次生效。
+节流：事件触发后，规定时间内，事件处理函数不能再次被调用。即在规定时间内，只能调用一次。 
+防抖：多次触发事件，事件处理函数只执行一次，规定时间内，只有最后一次生效。
 
 **使用**
 
 * 节流： 记录时间，只有大于阈值时，才会进行第二次执行。
+``` javascript
+const handler = () => {
+  console.log("某一个事件");
+};
+const throttle = (fn, delay) => {
+  return function () {
+    let lastTime = 0;
+    let nowTime = Date.now();
+    if (nowTime - lastTime > delay) {
+      fn.apply(this);
+      fn();
+      lastTime = nowTime;
+    }
+  };
+};
+window.addEventListener("scroll", throttle(handler, 2000));
+```
+
 * 防抖： 每次创建一个延时器，并且每次都清楚上一次的延时器。重新设置新的延时器。
+``` javascript
+const handler = () => {
+  console.log("某一个事件");
+};
+const debounce = (fn, time) => {
+  let timeout = null;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(fn, time);
+  };
+};
+window.addEventListener("scroll", debounce(handler, 2000));
+```
 
 ***
 
