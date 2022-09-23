@@ -35,7 +35,9 @@
 
 ### 事件委托
 
-事件委托的本质上是把一个元素的事件委托到另一个元素上(通常是父元素或更外层元素)。 **作用**
+事件委托的本质上是把一个元素的事件委托到另一个元素上(通常是父元素或更外层元素)。 
+
+**作用**
 
 1. 减少内存消耗 假如要为li绑定事件，但多个id绑定多次事件极大的消耗内存。 故利用事件委托，把事件绑定给ul，再利用event.target判断点击哪个li，执行后续操作。
 
@@ -49,9 +51,28 @@
 </ul>
 ```
 
-1. 动态绑定事件 假如要动态生成li，可以把事件绑定在最外层
+2. 动态绑定事件 假如要动态生成li，可以把事件绑定在最外层
 
 ***
+### 手写ajax
+``` javascript
+const getJSON = function (url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4) return;
+      if (xhr.status === 200 || xhr.status === 304) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(xhr.responseText));
+      }
+    };
+    xhr.send();
+  });
+};
+```
 
 ### 取消HTTP请求
 
