@@ -225,3 +225,28 @@ import { getUsefulContents } from '/modules/file.js';
 getUsefulContents('http://www.example.com',
     data => { doSomethingUseful(data); });
 ```
+
+# Object对象遍历的方式
+1. `for...in...`遍历*自身的*和*继承的* **可枚举属性** 不含Symbol属性
+2. `Object.keys()`遍历，返回一个数组包括对象的所有可枚举属性(不含*继承的*和*不可枚举的*)
+3. `Object.getOwnPropertyNames(obj)`返回一个数组,包括对象自身的所有属性(不含Symbol, 但含有*不可枚举的*)
+4. 使用`Reflect.ownKeys(obj)`，返回一个数组，包含对象自身所有的属性 (不管属性名是Symbol或字符串，也不管是否可枚举)
+
+## 对象遍历的顺序
+1. 会先按照正整数的规则遍历正整数的部分， 不管是(7,8,"3","9") 但"-1", "1.3"会按照插入的顺序
+2. 接下来会按照插入顺序遍历剩下的字符串
+3. 最后再按照插入顺序遍历Symbol类型
+
+``` javascript
+let o = {};
+o[Symbol("s2")] = "foo";
+o[Symbol("s1")] = "bar";
+o.b = "bbbbb";
+o.a = "aaaaa";
+o[2] = true;
+o[1] = true;
+
+Reflect.ownKeys(o); // ['1', '2', 'b', 'a', Symbol(s2), Symbol(s1)]
+Object.getOwnPropertyNames(o); //  ['1', '2', 'b', 'a']
+Object.getOwnPropertySymbols(o); // [Symbol(s2), Symbol(s1)]
+```
