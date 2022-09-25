@@ -44,3 +44,46 @@ fruits.forEach((fruit) => {
 
 list.appendChild(fragment)
 ```
+
+# 元素的居中
+## 行内元素水平居中
+行内元素包括: text, img, button, a 等等：
+> 只需要给父类元素添加text-align：center即可。
+## 块级元素水平居中(div)
+1. 给定width的div 
+    - 只需要加 `margin: 0 auto`即可
+2. 没有给定width的div
+    - 给**该div**添加`display：table`， 并且设置`margin:auto` (div的大小会根据内容大小而定)
+    - 将**子元素**设置为`display:inline-block`，并且给父元素添加`text-align:center`
+    - 给**父元素**设置为`display:flex`, 并且给**父元素**添加`justify-content:center`
+    - 给**父元素**设置为`display:flex`，并且给**子元素**添加`margin:0 auto`
+    - 给**父元素**设置：`display: grid;
+  justify-content: center`;
+
+## 块级元素垂直居中(div)
+1. **父元素**设置成`display:table`, **子元素**设置成`display:table-cell`,并且给**子元素**添加`vertical-align:middle`
+2. **父元素**设置成`display:flex; align-items:center`
+3. **父元素**设置成`display:grid; align-items:center`
+
+## 水平垂直居中
+1.
+``` CSS 
+.father{
+  position: relative;
+  width:500px;
+  height:500px;
+}
+.son{
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  width:200px;
+  height:200px;
+  margin:auto;
+}
+```
+2. 绝对定位+负margin
+3. flex;
+4. css-grid;
