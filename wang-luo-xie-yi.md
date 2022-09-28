@@ -205,7 +205,21 @@ HTTPS = HTTP + TLS(SSL已经过时) port: 443
 2. 服务器收到syn包，同时发送syn+ack (ack是确认包) 包，进入syn\_recv状态
 3. 客户端收到syn+ack包, 向服务器发送ack包，客户端和服务器进入ESTABLISHED状态，TCP链接建立成功
 
+![三次握手](./images/TCP-3.jpg)
+
 > 三次握手完毕后， 才开始传输数据
+
+- 如果第三次握手的ack包丢失：
+
+- Server端
+    第三次的ACK在网络中丢失，那么Server 端该TCP连接的状态为SYN_RECV,并且会根据 **TCP的超时重传机制**，会等待3秒、6秒、12秒后重新发送SYN+ACK包，以便Client重新发送ACK包。
+
+    而Server重发SYN+ACK包的次数，可以通过设置/proc/sys/net/ipv4/tcp_synack_retries修改，默认值为5.
+
+    如果重发指定次数之后，仍然未收到 client 的ACK应答，那么一段时间后，Server自动关闭这个连接，并从半连接队列（syns queue）移除。
+
+- Client端
+    第三次握手中的ACK包丢失的情况下，Client 向 server端发送数据，Server端将以 RST包响应(用于强制关闭tcp连接)，方能感知到Server的错误。client端接收到服务端发送SYN+ACK包，会尝试发送ACK包进行重连
 
 ### 四次挥手
 
@@ -243,3 +257,7 @@ csrf(cross-site request forgery) 跨站请求伪造。
 
 1. 添加验证码
 2. 使用token 服务端收到用户请求后，生成一个token，加密后返回给用户。 用户需要携带这个token再次提交请求。 服务端验证token是否正确。
+
+# DNS
+## DNS劫持
+域名劫持又称DNS劫持，是指在劫持的网络范围内拦截域名解析的请求，分析请求的域名，把审查范围以外的请求放行，否则返回假的IP地址或者什么都不做使请求失去响应，其效果就是对特定的网络不能访问或访问的是假网址。

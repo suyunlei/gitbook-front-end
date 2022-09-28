@@ -87,3 +87,20 @@ list.appendChild(fragment)
 2. 绝对定位+负margin
 3. flex;
 4. css-grid;
+
+# CSS选择器及优先级
+## 选择器
+- id选择器(#id)
+- 类选择器(.class)
+- 属性选择器(a[rel='external'])
+- 伪类选择器(a:hover,li:nth:child)
+- 标签选择器(div,h1,p)
+- 相邻选择器(h1 + p) 
+    第二个元素紧跟在第一个元素之后，并且两个元素都是属于同一个父元素的子元素，则第二个元素将被选中。
+- 子选择器(ul>li)
+- 后代选择器(li a)
+- 通配符选择器(*)
+
+## 优先级
+! important > 行内样式 > ID选择器 > 类选择器 > 标签选择器 > 通配符 > 继承 > 浏览器默认属性
+
