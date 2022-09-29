@@ -146,6 +146,28 @@ cookie的内容主要包括：名字、值、**过期时间**、路径和域。
 
 不同的浏览器之间可以公用一个cookie。
 
+当服务器收到 HTTP 请求时，服务器可以在响应头里面添加一个 Set-Cookie 选项。浏览器收到响应后通常会保存下 Cookie，之后对该服务器每一次请求中都通过 Cookie 请求头部将 Cookie 信息发送给服务器。
+``` javascript
+Set-Cookie: <cookie 名>=<cookie 值>
+```
+``` javascript
+HTTP/1.0 200 OK
+Content-type: text/html
+Set-Cookie: yummy_cookie=choco
+Set-Cookie: tasty_cookie=strawberry
+```
+``` javascript
+GET /sample_page.html HTTP/1.1
+Host: www.example.org
+Cookie: yummy_cookie=choco; tasty_cookie=strawberry
+```
+
+当服务器收到 HTTP 请求时，服务器可以在响应头里面添加一个 Set-Cookie 选项。浏览器收到响应后通常会保存下 Cookie，之后对该服务器每一次请求中都通过 Cookie 请求头部将 Cookie 信息发送给服务器。
+
+``` javascript
+response.setHeader('Set-Cookie', ['foo=bar', 'bar=baz']);
+```
+
 #### Session
 
 Session保存在**服务器**，也是为了存放用户信息。用户离开网站后Session被销毁。 客户端存储的其实是`session id`，保存这个session id的方式可以采用`cookie`. 在会话状态中，客户端用`session id`标明身份
