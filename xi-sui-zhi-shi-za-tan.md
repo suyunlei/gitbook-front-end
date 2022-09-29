@@ -291,3 +291,20 @@ module.exports = {
 构造函数会变量提升，即可以先使用后声明。
 而class必须先声明，后使用。
 
+## 箭头函数与普通函数的区别
+1.  箭头函数不会创建自己的this
+``` javascript
+let a = {
+  1: 1,
+  b: () => {
+    console.log(this.a);
+  },
+};
+a.b(); //undifined
+```
+2. 箭头函数继承而来的this指向永远不变
+3. .call()/.apply()/.bind()无法改变箭头函数中this的指向
+4. 箭头函数不能作为构造函数使用
+5. 箭头函数没有自己的arguments
+6. 箭头函数没有原型prototype
+7. 箭头函数不能用作Generator函数，不能使用yeild关键字
