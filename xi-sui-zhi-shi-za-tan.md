@@ -308,3 +308,12 @@ a.b(); //undifined
 5. 箭头函数没有自己的arguments
 6. 箭头函数没有原型prototype
 7. 箭头函数不能用作Generator函数，不能使用yeild关键字
+
+## Map Api
+> Map.prototype.entries()
+返回一个迭代器，取其中的元素可以这样取:
+```javascript
+for(let [key,value] of map.entries()){
+  console.log(key,value);
+}
+```
