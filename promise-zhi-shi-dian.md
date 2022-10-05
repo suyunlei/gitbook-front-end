@@ -66,7 +66,7 @@ p.then(
 `Promise.race(promises)`
 
 * 返回一个Promise对象
-* 该方法由数组中**第一个改变状态的Promise对象**决定，他为fulfilled，返回的对象状态就是fulfilled；它为rejected，返回的对象撞他就是rejected
+* 该方法由数组中**第一个改变状态的Promise对象**决定，他为fulfilled，返回的对象状态就是fulfilled；它为rejected，返回的对象就是rejected
 
 ### 改变Promise对象状态的3种方式
 
@@ -98,7 +98,7 @@ p.then(v=>{}).then(v=>{}).then(v=>{})
 
 ### 中断Promise的链式调用
 
-* 只有一种方式： 返回一个pending状态的Promise对象,状态不改变自然不会往下运行 即
+* 只有一种方式： 返回一个pending状态的Promise对象,状态不改变自然不会往下运行.
 
 ```javascript
 return new Promise(()=>{});
